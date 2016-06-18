@@ -12,7 +12,7 @@ public class TelaMenu extends javax.swing.JFrame {
 
     public TelaMenu() {
         initComponents();
-        this.setTitle("Algoritmo genético para Caixeiro viajante");
+        this.setTitle("AG-Caixeiro");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

@@ -6,7 +6,7 @@ import java.util.List;
 
 //Usuário define quantidade de cidades e a distancia entre elas.    OK
 //Usuário define quantidades de rotas aleatórias a serem geradas.   OK
-//É gerado rotas aleatórias.
+//É gerado rotas aleatórias.                                        OK
 //Escolhido 2 melhores rotas e gerado 2 filhos através do cruzamento.
 //É escolhido mais 2 melhores rotas, e assim sucessivamente até não haver mais 
 
@@ -57,7 +57,7 @@ public class Instancia {
     
     public void exibeRotas() {
         for (Rota rota : listRotas) {
-            rota.exibeSequencia();
+            rota.exibeRota();
         }
     }
     
