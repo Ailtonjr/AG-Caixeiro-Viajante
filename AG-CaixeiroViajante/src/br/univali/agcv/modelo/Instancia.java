@@ -1,6 +1,7 @@
 package br.univali.agcv.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //Usuário define quantidade de cidades e a distancia entre elas.    OK
@@ -11,18 +12,39 @@ import java.util.List;
 
 public class Instancia {
     private int qtdCidades;
-    private List<Cidade> listCidades;
+    private List<Rota> listRotas;
     private double[][] matrizDistancias;
 
     public Instancia(int qtdCidades) {
         this.qtdCidades = qtdCidades;
-        listCidades = new ArrayList(qtdCidades);
+        listRotas = new ArrayList();
         matrizDistancias = new double[qtdCidades][qtdCidades];
         zeraMatriz();
     }
 
     public void gerarRotas(int qtdRotas) {
-        
+        for (int i=0; i < qtdRotas; i++) {
+            Rota rotaAux = new Rota(qtdCidades);
+            
+            Collections.shuffle(rotaAux.getSequencia());
+            if (!checaIgualdade(rotaAux)) {
+                rotaAux.getSequencia().add(rotaAux.getSequencia().get(0));  //  Volta a cidade origem
+                rotaAux.calculaDistancia(matrizDistancias);
+                listRotas.add(rotaAux);
+            } else {
+                i--;    //  Refaz
+            }
+        }
+        exibeRotas();
+    }
+    
+    public boolean checaIgualdade(Rota r) {
+        for (Rota rota : listRotas) {
+            if (rota.getSequencia().equals(r.getSequencia())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public void zeraMatriz(){
@@ -30,6 +52,12 @@ public class Instancia {
             for (int c=0; c < qtdCidades; c++) {
                 matrizDistancias[l][c] = 0.0;
             }
+        }
+    }
+    
+    public void exibeRotas() {
+        for (Rota rota : listRotas) {
+            rota.exibeSequencia();
         }
     }
     
@@ -41,13 +69,6 @@ public class Instancia {
         this.qtdCidades = qtdCidades;
     }
 
-    public List<Cidade> getListCidades() {
-        return listCidades;
-    }
-
-    public void setListCidades(List<Cidade> listCidades) {
-        this.listCidades = listCidades;
-    }
 
     public double[][] getMatrizDistancias() {
         return matrizDistancias;

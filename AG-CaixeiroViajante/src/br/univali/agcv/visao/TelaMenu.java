@@ -135,8 +135,9 @@ public class TelaMenu extends javax.swing.JFrame {
             //  Exibicao
             for (int l=0; l < intancia.getQtdCidades(); l++) {
                 for (int c=0; c < intancia.getQtdCidades(); c++) {
-                    System.out.println(matrizAux[l][c] + "\t");
+                    System.out.print(matrizAux[l][c] + "\t");
                 }
+                System.out.println("");
             }
             
             //  Rotas aleatorias
