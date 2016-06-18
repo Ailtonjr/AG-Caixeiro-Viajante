@@ -29,6 +29,10 @@ public class TelaMenu extends javax.swing.JFrame {
 
         panelPrincipal = new javax.swing.JPanel();
         buttonNovaInstancia = new javax.swing.JButton();
+        textCidades = new javax.swing.JTextField();
+        textRotas = new javax.swing.JTextField();
+        labelCidades = new javax.swing.JLabel();
+        labelRotas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,21 +45,56 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
 
+        textCidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCidadesActionPerformed(evt);
+            }
+        });
+
+        textRotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textRotasActionPerformed(evt);
+            }
+        });
+
+        labelCidades.setText("Quantidade de cidades:");
+
+        labelRotas.setText("Quantidade de rotas:");
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonNovaInstancia)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonNovaInstancia))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelRotas)
+                            .addComponent(labelCidades))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                            .addComponent(textRotas))))
+                .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPrincipalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textCidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCidades))
+                .addGap(13, 13, 13)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textRotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelRotas))
+                .addGap(26, 26, 26)
                 .addComponent(buttonNovaInstancia)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -64,8 +103,8 @@ public class TelaMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,8 +118,9 @@ public class TelaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonNovaInstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovaInstanciaActionPerformed
+        Instancia intancia;
         try {
-            Instancia intancia = new Instancia(Integer.parseInt(JOptionPane.showInputDialog("Quantidade de cidades")));
+            intancia = new Instancia(Integer.parseInt(textCidades.getText()));
             double[][] matrizAux = intancia.getMatrizDistancias();
             
             for (int i=0; i < intancia.getQtdCidades(); i++) {  // Cidade
@@ -92,17 +132,28 @@ public class TelaMenu extends javax.swing.JFrame {
                 }
             }
             
+            //  Exibicao
             for (int l=0; l < intancia.getQtdCidades(); l++) {
                 for (int c=0; c < intancia.getQtdCidades(); c++) {
                     System.out.println(matrizAux[l][c] + "\t");
                 }
             }
+            
+            //  Rotas aleatorias
+            intancia.gerarRotas(Integer.parseInt(textRotas.getText()));
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        
     }//GEN-LAST:event_buttonNovaInstanciaActionPerformed
+
+    private void textCidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCidadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCidadesActionPerformed
+
+    private void textRotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textRotasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textRotasActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -126,6 +177,10 @@ public class TelaMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNovaInstancia;
+    private javax.swing.JLabel labelCidades;
+    private javax.swing.JLabel labelRotas;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JTextField textCidades;
+    private javax.swing.JTextField textRotas;
     // End of variables declaration//GEN-END:variables
 }

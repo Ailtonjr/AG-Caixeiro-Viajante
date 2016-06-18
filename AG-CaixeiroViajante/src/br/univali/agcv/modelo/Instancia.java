@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Usuário define quantidade de cidades e a distancia entre elas.    OK
-//Usuário define quantidades de rotas aleatórias a serem geradas.
+//Usuário define quantidades de rotas aleatórias a serem geradas.   OK
 //É gerado rotas aleatórias.
 //Escolhido 2 melhores rotas e gerado 2 filhos através do cruzamento.
 //É escolhido mais 2 melhores rotas, e assim sucessivamente até não haver mais 
@@ -21,6 +21,10 @@ public class Instancia {
         zeraMatriz();
     }
 
+    public void gerarRotas(int qtdRotas) {
+        
+    }
+    
     public void zeraMatriz(){
         for (int l=0; l < qtdCidades; l++) {
             for (int c=0; c < qtdCidades; c++) {
