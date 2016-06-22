@@ -54,8 +54,26 @@ public class Instancia {
         listRotas.remove(pai2);
         
         //  Cruzar
+        if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de gene predominante
+            cruzar(pai1, pai2);
+        } else if (pai2.getDistanciaPercorrida() < pai1.getDistanciaPercorrida()) {
+            cruzar(pai2, pai1);
+        } else {
+            //  Distancia igual
+        }
+    }
+    
+    public void cruzar(Rota predominante, Rota rota) {
+        Rota filho1 = new Rota();
+        Rota filho2 = new Rota();
+        int size = Math.round(predominante.getSequencia().size()/2);    //  talvez necessario size() ser transformado apra double
         
-        
+        for (int i=0; i < size; i++) {  //  Metade do predominante
+            filho1.getSequencia().add(predominante.getSequencia().get(i));
+        }
+        for (int i=size+1; i < predominante.getSequencia().size();i++) {
+            
+        }
     }
     
     public Rota menorRota() {
