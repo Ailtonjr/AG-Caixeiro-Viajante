@@ -36,20 +36,36 @@ public class Instancia {
         exibeRotas();
     }
     
-    public void calculaFitness() {
-        fitness = listRotas.get(0);
-        for (Rota rota : listRotas) {
-            if (rota.getDistanciaPercorrida() < fitness.getDistanciaPercorrida()) {
-                fitness = rota;
-            }
-        }
+    public void calculaFitness() {  //  Isso pode morrer. Virando apenas menorRota();
+        fitness = menorRota();
         System.out.println("Fitness:\t" + fitness.getDistanciaPercorrida());
         fitness.exibeRota();
     }
     
-    public void cruzaPopulacao() {
+    public void cruzaPopulacao(double mutacao) {
         //  Selecao dos pais
+        Rota pai1;
+        Rota pai2;
         
+        pai1 = menorRota();
+        listRotas.remove(pai1);
+        
+        pai2 = menorRota();
+        listRotas.remove(pai2);
+        
+        //  Cruzar
+        
+        
+    }
+    
+    public Rota menorRota() {
+        Rota rotaAux = listRotas.get(0);
+        for (Rota rota : listRotas) {
+            if (rota.getDistanciaPercorrida() < rotaAux.getDistanciaPercorrida()) {
+                rotaAux = rota;
+            }
+        }
+        return rotaAux;
     }
     
     public boolean checaIgualdade(Rota r) {

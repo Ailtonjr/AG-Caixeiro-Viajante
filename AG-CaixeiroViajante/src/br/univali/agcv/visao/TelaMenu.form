@@ -64,9 +64,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelRotas" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelCidades" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelMutacao" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="15" max="32767" attributes="0"/>
+                          <EmptySpace pref="47" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="textMutacao" max="32767" attributes="0"/>
                               <Component id="textCidades" pref="54" max="32767" attributes="0"/>
                               <Component id="textRotas" max="32767" attributes="0"/>
                           </Group>
@@ -89,9 +91,14 @@
                       <Component id="textRotas" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelRotas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labelMutacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textMutacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Component id="buttonNovaInstancia" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,6 +131,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Quantidade de rotas:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelMutacao">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Percentual de muta&#xe7;&#xe3;o:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="textMutacao">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textMutacaoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

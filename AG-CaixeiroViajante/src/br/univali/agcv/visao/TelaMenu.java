@@ -50,6 +50,8 @@ public class TelaMenu extends javax.swing.JFrame {
         textRotas = new javax.swing.JTextField();
         labelCidades = new javax.swing.JLabel();
         labelRotas = new javax.swing.JLabel();
+        labelMutacao = new javax.swing.JLabel();
+        textMutacao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +80,14 @@ public class TelaMenu extends javax.swing.JFrame {
 
         labelRotas.setText("Quantidade de rotas:");
 
+        labelMutacao.setText("Percentual de mutação:");
+
+        textMutacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textMutacaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -91,9 +101,11 @@ public class TelaMenu extends javax.swing.JFrame {
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelRotas)
-                            .addComponent(labelCidades))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                            .addComponent(labelCidades)
+                            .addComponent(labelMutacao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textMutacao)
                             .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
                             .addComponent(textRotas))))
                 .addContainerGap())
@@ -109,9 +121,13 @@ public class TelaMenu extends javax.swing.JFrame {
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textRotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelRotas))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMutacao)
+                    .addComponent(textMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(buttonNovaInstancia)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,7 +179,8 @@ public class TelaMenu extends javax.swing.JFrame {
             //  Sem comentarios
             instancia.calculaFitness();
             
-            
+            //  Cruzamento e formacao da nova populacao
+            instancia.cruzaPopulacao(Double.parseDouble(textMutacao.getText()));
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,6 +194,10 @@ public class TelaMenu extends javax.swing.JFrame {
     private void textRotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textRotasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textRotasActionPerformed
+
+    private void textMutacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMutacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textMutacaoActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -201,9 +222,11 @@ public class TelaMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNovaInstancia;
     private javax.swing.JLabel labelCidades;
+    private javax.swing.JLabel labelMutacao;
     private javax.swing.JLabel labelRotas;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTextField textCidades;
+    private javax.swing.JTextField textMutacao;
     private javax.swing.JTextField textRotas;
     // End of variables declaration//GEN-END:variables
 }
