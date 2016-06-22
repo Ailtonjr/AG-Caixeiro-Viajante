@@ -1,3 +1,20 @@
+/*
+1 - Usuário define quantidade de cidades e a distancia entre elas.  ok
+
+2 - Usuário define quantidades de rotas aleatórias a serem geradas. ok
+
+3 - É gerado rotas aleatórias.                                      ok
+
+4 - É gravado a melhor rota destas aleatórias, para sua distancia ser usada como fitness.   ok
+
+5 - Escolhido 2 melhores rotas e gerado 2 filhos através do cruzamento (que podem ou não ter mutação). Gravando em uma lista de população nova.
+
+6 - É escolhido mais 2 melhores rotas, e assim sucessivamente até não haver mais nada da população antiga. Gerando uma população totalmente nova, só de filhos.
+
+7 - Verificado se alguma rota da nova população de filhos é menor que o fitness. Caso não, é feito o cruzamento novamente com a nova população, voltando ao passo 5. Caso sim é dado como solução do problema.
+
+*/
+
 package br.univali.agcv.visao;
 
 import br.univali.agcv.modelo.Instancia;
@@ -118,14 +135,14 @@ public class TelaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonNovaInstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovaInstanciaActionPerformed
-        Instancia intancia;
+        Instancia instancia;
         try {
-            intancia = new Instancia(Integer.parseInt(textCidades.getText()));
-            double[][] matrizAux = intancia.getMatrizDistancias();
+            instancia = new Instancia(Integer.parseInt(textCidades.getText()));
+            double[][] matrizAux = instancia.getMatrizDistancias();
             
-            for (int i=0; i < intancia.getQtdCidades(); i++) {  // Cidade
+            for (int i=0; i < instancia.getQtdCidades(); i++) {  // Cidade
                 int j = i;    //  Cascata
-                while (j < intancia.getQtdCidades()) {  // Distancia cidades
+                while (j < instancia.getQtdCidades()) {  // Distancia cidades
                     
                     matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
                     j++;
@@ -133,15 +150,20 @@ public class TelaMenu extends javax.swing.JFrame {
             }
             
             //  Exibicao
-            for (int l=0; l < intancia.getQtdCidades(); l++) {
-                for (int c=0; c < intancia.getQtdCidades(); c++) {
+            for (int l=0; l < instancia.getQtdCidades(); l++) {
+                for (int c=0; c < instancia.getQtdCidades(); c++) {
                     System.out.print(matrizAux[l][c] + "\t");
                 }
                 System.out.println("");
             }
             
             //  Rotas aleatorias
-            intancia.gerarRotas(Integer.parseInt(textRotas.getText()));
+            instancia.gerarRotas(Integer.parseInt(textRotas.getText()));
+            
+            //  Sem comentarios
+            instancia.calculaFitness();
+            
+            
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -3,21 +3,19 @@ package br.univali.agcv.modelo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-//Usuário define quantidade de cidades e a distancia entre elas.    OK
-//Usuário define quantidades de rotas aleatórias a serem geradas.   OK
-//É gerado rotas aleatórias.                                        OK
-//Escolhido 2 melhores rotas e gerado 2 filhos através do cruzamento.
-//É escolhido mais 2 melhores rotas, e assim sucessivamente até não haver mais 
+// TODO 5 - Escolhido 2 melhores rotas e gerado 2 filhos através do cruzamento (que podem ou não ter mutação). Gravando em uma lista de população nova.
 
 public class Instancia {
     private int qtdCidades;
     private List<Rota> listRotas;
+    private List<Rota> listNovaPopulacao;
     private double[][] matrizDistancias;
+    private Rota fitness;
 
     public Instancia(int qtdCidades) {
         this.qtdCidades = qtdCidades;
         listRotas = new ArrayList();
+        listNovaPopulacao = new ArrayList();
         matrizDistancias = new double[qtdCidades][qtdCidades];
         zeraMatriz();
     }
@@ -36,6 +34,22 @@ public class Instancia {
             }
         }
         exibeRotas();
+    }
+    
+    public void calculaFitness() {
+        fitness = listRotas.get(0);
+        for (Rota rota : listRotas) {
+            if (rota.getDistanciaPercorrida() < fitness.getDistanciaPercorrida()) {
+                fitness = rota;
+            }
+        }
+        System.out.println("Fitness:\t" + fitness.getDistanciaPercorrida());
+        fitness.exibeRota();
+    }
+    
+    public void cruzaPopulacao() {
+        //  Selecao dos pais
+        
     }
     
     public boolean checaIgualdade(Rota r) {
@@ -69,14 +83,11 @@ public class Instancia {
         this.qtdCidades = qtdCidades;
     }
 
-
     public double[][] getMatrizDistancias() {
         return matrizDistancias;
     }
 
     public void setMatrizDistancias(double[][] matrizDistancias) {
         this.matrizDistancias = matrizDistancias;
-    }
-    
-    
+    } 
 }
