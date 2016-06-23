@@ -14,6 +14,10 @@ public class Rota {
         }
     }
     
+    public Rota() {
+        sequencia = new ArrayList();
+    }
+    
     public void calculaDistancia(double[][] matrizDistancias) {
         for (int i=1; i < sequencia.size(); i++) {  //  Comeca em 1 para para nao acontecer nullPointer
             if (sequencia.get(i-1) >= sequencia.get(i)) {   //  Regra para pegar a diagonal superior da matriz
@@ -25,7 +29,6 @@ public class Rota {
     }
     
     public void exibeRota() {
-        System.out.println("\n");
         for (Integer s : sequencia) {
             System.out.print(s + "\t");
         }
