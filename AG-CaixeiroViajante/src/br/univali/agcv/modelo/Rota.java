@@ -29,7 +29,6 @@ public class Rota {
     }
     
     public void exibeRota() {
-        System.out.println("\n");
         for (Integer s : sequencia) {
             System.out.print(s + "\t");
         }

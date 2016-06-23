@@ -154,8 +154,9 @@ public class TelaMenu extends javax.swing.JFrame {
         Instancia instancia;
         try {
             instancia = new Instancia(Integer.parseInt(textCidades.getText()));
-            double[][] matrizAux = instancia.getMatrizDistancias();
+            double[][] matrizAux = instancia.getMatrizDistancias(); //  Ponteiro
             
+            //  Entrada de dados
             for (int i=0; i < instancia.getQtdCidades(); i++) {  // Cidade
                 int j = i;    //  Cascata
                 while (j < instancia.getQtdCidades()) {  // Distancia cidades
@@ -165,13 +166,9 @@ public class TelaMenu extends javax.swing.JFrame {
                 }
             }
             
-            //  Exibicao
-            for (int l=0; l < instancia.getQtdCidades(); l++) {
-                for (int c=0; c < instancia.getQtdCidades(); c++) {
-                    System.out.print(matrizAux[l][c] + "\t");
-                }
-                System.out.println("");
-            }
+            //  Exibicao matriz
+            System.out.println("------------------------------\nMatriz de adjacencia:");
+            instancia.exibeMatriz();
             
             //  Rotas aleatorias
             instancia.gerarRotas(Integer.parseInt(textRotas.getText()));
@@ -181,6 +178,10 @@ public class TelaMenu extends javax.swing.JFrame {
             
             //  Cruzamento e formacao da nova populacao
             instancia.cruzaPopulacao(Double.parseDouble(textMutacao.getText()));
+            
+            //  Exibicao dos dados da nova populacao
+            System.out.println("------------------------------\nNova população:");
+            instancia.exibeRotasNovaPopulacao();
             
         } catch (Exception e) {
             e.printStackTrace();
