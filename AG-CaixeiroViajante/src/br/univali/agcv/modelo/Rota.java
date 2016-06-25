@@ -27,7 +27,10 @@ public class Rota {
                 distanciaPercorrida += matrizDistancias[sequencia.get(i-1)][sequencia.get(i)];
             }
         }
-        fitness = 1/distanciaPercorrida;    //  Calcula o fitness da rota
+        
+        if ((1.0/distanciaPercorrida)*100.0 <= 0)   fitness = 1;
+        else fitness = ((1.0/distanciaPercorrida)*100.0);    //  Calcula o fitness da rota
+        //fitness = 1/distanciaPercorrida;
     }
     
     public void exibeRota() {

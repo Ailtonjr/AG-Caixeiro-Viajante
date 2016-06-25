@@ -49,6 +49,7 @@ public class Instancia {
             pai1 = listRotas.get(roleta.getSorteadoIndex()); 
             do {
                 pai2 = listRotas.get(roleta.getSorteadoIndex());
+                System.out.println("ROLETA");
             } while(pai1.getSequencia().equals(pai2.getSequencia()));
         
             //  Cruzar
@@ -68,7 +69,7 @@ public class Instancia {
             listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
         }
         listRotas = new ArrayList(listNovaPopulacao);   //  Populacao atual passa a ser a nova populacao
-        listNovaPopulacao = new ArrayList();    //  Zera nova populacao
+        listNovaPopulacao = new ArrayList();            //  Zera nova populacao
     }
     
     public void cruzar(Rota predominante, Rota rota) {

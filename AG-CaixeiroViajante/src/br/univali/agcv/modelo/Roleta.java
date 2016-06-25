@@ -20,6 +20,8 @@ public class Roleta {
     }
     
     public int getSorteadoIndex() {
-        return rand.nextInt(roleta.size());
+        int numero = rand.nextInt(roleta.size());
+        System.out.println(numero);
+        return numero;
     }
 }
