@@ -6,6 +6,7 @@ import java.util.List;
 public class Rota {
     private List<Integer> sequencia;
     private double distanciaPercorrida = 0;
+    private double fitness;
 
     public Rota(int qtdCidades) {
         sequencia = new ArrayList();
@@ -26,6 +27,7 @@ public class Rota {
                 distanciaPercorrida += matrizDistancias[sequencia.get(i-1)][sequencia.get(i)];
             }
         }
+        fitness = 1/distanciaPercorrida;    //  Calcula o fitness da rota
     }
     
     public void exibeRota() {
@@ -50,6 +52,15 @@ public class Rota {
     public void setDistanciaPercorrida(double distanciaPercorrida) {
         this.distanciaPercorrida = distanciaPercorrida;
     }
+
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
+    }
+    
     
     
 }

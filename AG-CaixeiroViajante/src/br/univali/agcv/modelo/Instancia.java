@@ -1,9 +1,9 @@
 package br.univali.agcv.modelo;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-// TODO 5 - Escolhido 2 melhores rotas e gerado 2 filhos através do cruzamento (que podem ou não ter mutação). Gravando em uma lista de população nova.
 
 public class Instancia {
     private int qtdCidades;
@@ -11,12 +11,15 @@ public class Instancia {
     private List<Rota> listNovaPopulacao;
     private double[][] matrizDistancias;
     private Rota fitness;
+    private Roleta roleta;
+    private int chanceMutacao;
 
-    public Instancia(int qtdCidades) {
+    public Instancia(int qtdCidades, int percentualCruzamento, int chanceMutacao) {
         this.qtdCidades = qtdCidades;
         listRotas = new ArrayList();
         listNovaPopulacao = new ArrayList();
         matrizDistancias = new double[qtdCidades][qtdCidades];
+        this.chanceMutacao = chanceMutacao;
         zeraMatriz();
     }
 
@@ -36,25 +39,19 @@ public class Instancia {
         exibeRotas();
     }
     
-    public void calculaFitness() {  //  Isso pode morrer. Virando apenas menorRota();
-        fitness = menorRota();
-        System.out.println("------------------------------\nFitness:\t" + fitness.getDistanciaPercorrida());
-        fitness.exibeRota();
-    }
-    
-    public void cruzaPopulacao(double mutacao) {
+    public void cruzaPopulacao() {
         //  Selecao dos pais
         Rota pai1;
         Rota pai2;
+        roleta = new Roleta(listRotas);
         
-        pai1 = menorRota();
-        listRotas.remove(pai1);
-        
-        pai2 = menorRota();
-        listRotas.remove(pai2);
+        pai1 = listRotas.get(roleta.getSorteadoIndex()); 
+        do {
+            pai2 = listRotas.get(roleta.getSorteadoIndex());
+        } while(pai1.getSequencia().equals(pai2.getSequencia()));
         
         //  Cruzar
-        if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de gene predominante
+        if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
             cruzar(pai1, pai2);
         } else if (pai2.getDistanciaPercorrida() < pai1.getDistanciaPercorrida()) {
             cruzar(pai2, pai1);
@@ -62,60 +59,46 @@ public class Instancia {
             //  Distancia igual
             cruzar(pai1, pai2);
         }
+        
+        System.out.println("------------------------------\nCruzamento: ");
+        pai1.exibeRota();
+        pai2.exibeRota();
+        System.out.println("Filho: ");
+        listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
+        
+        listRotas = new ArrayList(listNovaPopulacao);
     }
     
     public void cruzar(Rota predominante, Rota rota) {
-        Rota filho1 = new Rota();
-        Rota filho2 = new Rota();
+        // Teste probabilistico do cruzamento
+        
+        Rota filho = new Rota();
+        
         boolean igual;
         int size = Math.round(predominante.getSequencia().size()/2);    //  talvez necessario size() ser transformado apra double
         System.out.println("Média de cidades:" + size);
-        //  Filho1
+        
         for (int i=0; i < size; i++) {  //  Metade do predominante
-            filho1.getSequencia().add(predominante.getSequencia().get(i));
+            filho.getSequencia().add(predominante.getSequencia().get(i));
         }
         
         for (Integer sRota : rota.getSequencia()) {
             igual = false;
-            for (Integer sFilho1 : filho1.getSequencia()) {
+            for (Integer sFilho1 : filho.getSequencia()) {
                 if (sRota == sFilho1) {
                     igual = true;
                     break;
                 }
             }
             if (!igual) {
-                filho1.getSequencia().add(sRota);
+                filho.getSequencia().add(sRota);
             }
         }
-        filho1.getSequencia().add(filho1.getSequencia().get(0));
-        
-        System.out.println("------------------------------\nFILHO1: ");
-        filho1.exibeRota();
-        
-        //  Filho2
-        for (int i=size; i < predominante.getSequencia().size(); i++) {  //  Metade do predominante
-            filho2.getSequencia().add(predominante.getSequencia().get(i));
-        }
-        for (Integer sRota : rota.getSequencia()) {
-            igual = false;
-            for (Integer sFilho1 : filho2.getSequencia()) {
-                if (sRota == sFilho1) {
-                    igual = true;
-                    break;
-                }
-            }
-            if (!igual) {
-                filho2.getSequencia().add(0, sRota);
-            }
-        }
-        filho2.getSequencia().add(filho2.getSequencia().get(0));
-        
-        System.out.println("------------------------------\nFILHO2: ");
-        filho2.exibeRota();
-        
+        filho.getSequencia().add(filho.getSequencia().get(0));
+       
         //  Insere na nova populacao
-        listNovaPopulacao.add(filho1);
-        listNovaPopulacao.add(filho2);
+        filho.calculaDistancia(matrizDistancias);
+        listNovaPopulacao.add(filho);
     }
     
     public Rota menorRota() {
