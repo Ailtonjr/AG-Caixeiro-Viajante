@@ -44,29 +44,31 @@ public class Instancia {
         Rota pai1;
         Rota pai2;
         roleta = new Roleta(listRotas);
+
+        for (int i=0; i < listRotas.size(); i++) {
+            pai1 = listRotas.get(roleta.getSorteadoIndex()); 
+            do {
+                pai2 = listRotas.get(roleta.getSorteadoIndex());
+            } while(pai1.getSequencia().equals(pai2.getSequencia()));
         
-        pai1 = listRotas.get(roleta.getSorteadoIndex()); 
-        do {
-            pai2 = listRotas.get(roleta.getSorteadoIndex());
-        } while(pai1.getSequencia().equals(pai2.getSequencia()));
+            //  Cruzar
+            if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
+                cruzar(pai1, pai2);
+            } else if (pai2.getDistanciaPercorrida() < pai1.getDistanciaPercorrida()) {
+                cruzar(pai2, pai1);
+            } else {
+                //  Distancia igual
+                cruzar(pai1, pai2);
+            }
         
-        //  Cruzar
-        if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
-            cruzar(pai1, pai2);
-        } else if (pai2.getDistanciaPercorrida() < pai1.getDistanciaPercorrida()) {
-            cruzar(pai2, pai1);
-        } else {
-            //  Distancia igual
-            cruzar(pai1, pai2);
+            System.out.println("------------------------------\nCruzamento: ");
+            pai1.exibeRota();
+            pai2.exibeRota();
+            System.out.println("Filho: ");
+            listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
         }
-        
-        System.out.println("------------------------------\nCruzamento: ");
-        pai1.exibeRota();
-        pai2.exibeRota();
-        System.out.println("Filho: ");
-        listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
-        
-        listRotas = new ArrayList(listNovaPopulacao);
+        listRotas = new ArrayList(listNovaPopulacao);   //  Populacao atual passa a ser a nova populacao
+        listNovaPopulacao = new ArrayList();    //  Zera nova populacao
     }
     
     public void cruzar(Rota predominante, Rota rota) {
@@ -76,7 +78,7 @@ public class Instancia {
         
         boolean igual;
         int size = Math.round(predominante.getSequencia().size()/2);    //  talvez necessario size() ser transformado apra double
-        System.out.println("Média de cidades:" + size);
+        //System.out.println("Média de cidades:" + size);
         
         for (int i=0; i < size; i++) {  //  Metade do predominante
             filho.getSequencia().add(predominante.getSequencia().get(i));

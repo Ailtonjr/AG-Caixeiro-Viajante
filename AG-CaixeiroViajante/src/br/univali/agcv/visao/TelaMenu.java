@@ -109,25 +109,23 @@ public class TelaMenu extends javax.swing.JFrame {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonNovaInstancia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                    .addComponent(buttonNovaInstancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelRotas)
                             .addComponent(labelCidades)
                             .addComponent(labelMutacao)
                             .addComponent(labelIteracoes)
-                            .addComponent(labelSobreviventes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelSobreviventes)
+                            .addComponent(labelPercentual))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textCruzamento)
                             .addComponent(textSobreviventes)
                             .addComponent(textIteracores)
                             .addComponent(textMutacao)
                             .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(textRotas)))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(labelPercentual)
-                        .addGap(29, 29, 29)
-                        .addComponent(textCruzamento, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))
+                            .addComponent(textRotas))))
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -210,7 +208,9 @@ public class TelaMenu extends javax.swing.JFrame {
             instancia.gerarRotas(Integer.parseInt(textRotas.getText()));
             
             //  Cruzamento e formacao da nova populacao
+            System.out.println("------------------------------\nCRUZAMENTOS" + Integer.parseInt(textIteracores.getText()));
             for (int geracao=0; geracao < Integer.parseInt(textIteracores.getText()); geracao++) {
+                System.out.println("++++++++++++++++++++++++++++++\nGeração " + geracao);
                 instancia.cruzaPopulacao();
                 instancia.exibeRotasNovaPopulacao();
             }
@@ -219,7 +219,13 @@ public class TelaMenu extends javax.swing.JFrame {
             Rota solucao = instancia.menorRota();
             System.out.println("------------------------------\nSolução encontrada:");
             solucao.exibeRota();
-            JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n");
+            
+            String solucaoPane = "";
+            for (Integer sequencia : solucao.getSequencia()) {
+                solucaoPane += sequencia + " - ";
+            }
+            
+            JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n" + solucaoPane);
         } catch (Exception e) {
             e.printStackTrace();
         }
