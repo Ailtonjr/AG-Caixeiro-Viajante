@@ -12,12 +12,14 @@ public class Instancia {
     private double[][] matrizDistancias;
     private Rota fitness;
     private Roleta roleta;
+    private int chanceMutacao;
 
-    public Instancia(int qtdCidades) {
+    public Instancia(int qtdCidades, int percentualCruzamento, int chanceMutacao) {
         this.qtdCidades = qtdCidades;
         listRotas = new ArrayList();
         listNovaPopulacao = new ArrayList();
         matrizDistancias = new double[qtdCidades][qtdCidades];
+        this.chanceMutacao = chanceMutacao;
         zeraMatriz();
     }
 
@@ -37,7 +39,7 @@ public class Instancia {
         exibeRotas();
     }
     
-    public void cruzaPopulacao(double mutacao) {
+    public void cruzaPopulacao() {
         //  Selecao dos pais
         Rota pai1;
         Rota pai2;
@@ -46,7 +48,7 @@ public class Instancia {
         pai1 = listRotas.get(roleta.getSorteadoIndex()); 
         do {
             pai2 = listRotas.get(roleta.getSorteadoIndex());
-        } while(pai1.getSequencia().equals(pai2.getSequencia()));  //
+        } while(pai1.getSequencia().equals(pai2.getSequencia()));
         
         //  Cruzar
         if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
@@ -58,12 +60,13 @@ public class Instancia {
             cruzar(pai1, pai2);
         }
         
-        System.out.println("------------------------------\nFILHO: ");
+        System.out.println("------------------------------\nCruzamento: ");
         pai1.exibeRota();
         pai2.exibeRota();
-        System.out.print("Filho: ");
+        System.out.println("Filho: ");
         listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
         
+        listRotas = listNovaPopulacao;
     }
     
     public void cruzar(Rota predominante, Rota rota) {
@@ -94,6 +97,7 @@ public class Instancia {
         filho.getSequencia().add(filho.getSequencia().get(0));
        
         //  Insere na nova populacao
+        filho.calculaDistancia(matrizDistancias);
         listNovaPopulacao.add(filho);
     }
     

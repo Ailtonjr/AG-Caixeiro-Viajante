@@ -35,10 +35,12 @@ public class TelaMenu extends javax.swing.JFrame {
         labelRotas = new javax.swing.JLabel();
         labelMutacao = new javax.swing.JLabel();
         textMutacao = new javax.swing.JTextField();
-        labelMutacao1 = new javax.swing.JLabel();
-        textMutacao1 = new javax.swing.JTextField();
-        labelMutacao2 = new javax.swing.JLabel();
-        textMutacao2 = new javax.swing.JTextField();
+        labelIteracoes = new javax.swing.JLabel();
+        textIteracores = new javax.swing.JTextField();
+        labelSobreviventes = new javax.swing.JLabel();
+        textSobreviventes = new javax.swing.JTextField();
+        labelPercentual = new javax.swing.JLabel();
+        textCruzamento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,19 +77,27 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
 
-        labelMutacao1.setText("Quantidade de iterações:");
+        labelIteracoes.setText("Quantidade de iterações:");
 
-        textMutacao1.addActionListener(new java.awt.event.ActionListener() {
+        textIteracores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textMutacao1ActionPerformed(evt);
+                textIteracoresActionPerformed(evt);
             }
         });
 
-        labelMutacao2.setText("Sobreviventes por geração");
+        labelSobreviventes.setText("Sobreviventes por geração");
 
-        textMutacao2.addActionListener(new java.awt.event.ActionListener() {
+        textSobreviventes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textMutacao2ActionPerformed(evt);
+                textSobreviventesActionPerformed(evt);
+            }
+        });
+
+        labelPercentual.setText("Percentual de cruzamento:");
+
+        textCruzamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCruzamentoActionPerformed(evt);
             }
         });
 
@@ -95,24 +105,28 @@ public class TelaMenu extends javax.swing.JFrame {
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonNovaInstancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonNovaInstancia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelRotas)
                             .addComponent(labelCidades)
                             .addComponent(labelMutacao)
-                            .addComponent(labelMutacao1)
-                            .addComponent(labelMutacao2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                            .addComponent(labelIteracoes)
+                            .addComponent(labelSobreviventes))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textMutacao2)
-                            .addComponent(textMutacao1)
+                            .addComponent(textSobreviventes)
+                            .addComponent(textIteracores)
                             .addComponent(textMutacao)
                             .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(textRotas))))
+                            .addComponent(textRotas)))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(labelPercentual)
+                        .addGap(29, 29, 29)
+                        .addComponent(textCruzamento, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -132,12 +146,16 @@ public class TelaMenu extends javax.swing.JFrame {
                     .addComponent(textMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMutacao1)
-                    .addComponent(textMutacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelIteracoes)
+                    .addComponent(textIteracores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMutacao2)
-                    .addComponent(textMutacao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelSobreviventes)
+                    .addComponent(textSobreviventes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelPercentual)
+                    .addComponent(textCruzamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonNovaInstancia)
                 .addContainerGap())
@@ -165,8 +183,12 @@ public class TelaMenu extends javax.swing.JFrame {
 
     private void buttonNovaInstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovaInstanciaActionPerformed
         Instancia instancia;
+        int qtdCidades = Integer.parseInt(textCidades.getText());
+        int percentualCruzamento = Integer.parseInt(textCruzamento.getText());
+        int chanceMutacao = Integer.parseInt(textRotas.getText());
+        
         try {
-            instancia = new Instancia(Integer.parseInt(textCidades.getText()));
+            instancia = new Instancia(qtdCidades, percentualCruzamento, chanceMutacao);
             double[][] matrizAux = instancia.getMatrizDistancias(); //  Ponteiro
             
             //  Entrada de dados
@@ -187,7 +209,9 @@ public class TelaMenu extends javax.swing.JFrame {
             instancia.gerarRotas(Integer.parseInt(textRotas.getText()));
             
             //  Cruzamento e formacao da nova populacao
-            instancia.cruzaPopulacao(Double.parseDouble(textMutacao.getText()));
+            for (int geracao=0; geracao < Integer.parseInt(textIteracores.getText()); geracao++) {
+                instancia.cruzaPopulacao();
+            }
             
             //  Exibicao dos dados da nova populacao
             System.out.println("------------------------------\nNova população:");
@@ -210,13 +234,17 @@ public class TelaMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textMutacaoActionPerformed
 
-    private void textMutacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMutacao1ActionPerformed
+    private void textIteracoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIteracoresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textMutacao1ActionPerformed
+    }//GEN-LAST:event_textIteracoresActionPerformed
 
-    private void textMutacao2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMutacao2ActionPerformed
+    private void textSobreviventesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSobreviventesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textMutacao2ActionPerformed
+    }//GEN-LAST:event_textSobreviventesActionPerformed
+
+    private void textCruzamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCruzamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCruzamentoActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -241,15 +269,17 @@ public class TelaMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNovaInstancia;
     private javax.swing.JLabel labelCidades;
+    private javax.swing.JLabel labelIteracoes;
     private javax.swing.JLabel labelMutacao;
-    private javax.swing.JLabel labelMutacao1;
-    private javax.swing.JLabel labelMutacao2;
+    private javax.swing.JLabel labelPercentual;
     private javax.swing.JLabel labelRotas;
+    private javax.swing.JLabel labelSobreviventes;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTextField textCidades;
+    private javax.swing.JTextField textCruzamento;
+    private javax.swing.JTextField textIteracores;
     private javax.swing.JTextField textMutacao;
-    private javax.swing.JTextField textMutacao1;
-    private javax.swing.JTextField textMutacao2;
     private javax.swing.JTextField textRotas;
+    private javax.swing.JTextField textSobreviventes;
     // End of variables declaration//GEN-END:variables
 }
