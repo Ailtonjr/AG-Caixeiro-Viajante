@@ -1,6 +1,7 @@
 package br.univali.agcv.visao;
 
 import br.univali.agcv.modelo.Instancia;
+import br.univali.agcv.modelo.Rota;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -211,12 +212,14 @@ public class TelaMenu extends javax.swing.JFrame {
             //  Cruzamento e formacao da nova populacao
             for (int geracao=0; geracao < Integer.parseInt(textIteracores.getText()); geracao++) {
                 instancia.cruzaPopulacao();
+                instancia.exibeRotasNovaPopulacao();
             }
             
-            //  Exibicao dos dados da nova populacao
-            System.out.println("------------------------------\nNova população:");
-            instancia.exibeRotasNovaPopulacao();
-            
+            //  Solucao
+            Rota solucao = instancia.menorRota();
+            System.out.println("------------------------------\nSolução encontrada:");
+            solucao.exibeRota();
+            JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n");
         } catch (Exception e) {
             e.printStackTrace();
         }

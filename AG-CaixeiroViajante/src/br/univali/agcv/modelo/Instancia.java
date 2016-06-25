@@ -66,7 +66,7 @@ public class Instancia {
         System.out.println("Filho: ");
         listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
         
-        listRotas = listNovaPopulacao;
+        listRotas = new ArrayList(listNovaPopulacao);
     }
     
     public void cruzar(Rota predominante, Rota rota) {
