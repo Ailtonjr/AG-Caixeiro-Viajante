@@ -28,4 +28,12 @@ public class Roleta {
     public int getSorteadoIndex() {
         return roleta.get(rand.nextInt(roleta.size()));
     }
+    
+    public boolean chanceAleatoria(int seed) {
+        if (rand.nextInt(100)+1 <= seed) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

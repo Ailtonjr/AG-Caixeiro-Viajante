@@ -4,6 +4,7 @@ import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Instancia {
     private int qtdCidades;
@@ -12,14 +13,18 @@ public class Instancia {
     private double[][] matrizDistancias;
     private Rota fitness;
     private Roleta roleta;
+    private int chanceCruzamento;
     private int chanceMutacao;
+    private Random rand;
 
-    public Instancia(int qtdCidades, int percentualCruzamento, int chanceMutacao) {
+    public Instancia(int qtdCidades, int percentualCruzamento, int percentualMutacao) {
         this.qtdCidades = qtdCidades;
         listRotas = new ArrayList();
         listNovaPopulacao = new ArrayList();
         matrizDistancias = new double[qtdCidades][qtdCidades];
-        this.chanceMutacao = chanceMutacao;
+        chanceCruzamento = percentualCruzamento;
+        this.chanceMutacao = percentualMutacao;
+        rand = new Random();
         zeraMatriz();
     }
 
@@ -57,22 +62,24 @@ public class Instancia {
                 pai2 = listRotas.get(indexPai2);
                 pai2.exibeRota();
             } while(indexPai1 == indexPai2);
-        
-            //  Cruzar
-            if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
-                cruzar(pai1, pai2);
-            } else if (pai2.getDistanciaPercorrida() < pai1.getDistanciaPercorrida()) {
-                cruzar(pai2, pai1);
-            } else {
-                //  Distancia igual
-                cruzar(pai1, pai2);
-            }
-        
-            System.out.println("------------------------------\nCruzamento: ");
-            pai1.exibeRota();
-            pai2.exibeRota();
-            System.out.println("Filho: ");
-            listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
+                    
+            if (roleta.chanceAleatoria(chanceCruzamento)) { // Chance de cruzar ou nao
+                //  Cruzar
+                if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
+                    cruzar(pai1, pai2);
+                } else if (pai2.getDistanciaPercorrida() < pai1.getDistanciaPercorrida()) {
+                    cruzar(pai2, pai1);
+                } else {
+                    //  Distancia igual
+                    cruzar(pai1, pai2);
+                }
+
+                System.out.println("------------------------------\nCruzamento: ");
+                pai1.exibeRota();
+                pai2.exibeRota();
+                System.out.println("Filho: ");
+                listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
+            } else i--;
         }
         listRotas = new ArrayList(listNovaPopulacao);   //  Populacao atual passa a ser a nova populacao
         listNovaPopulacao = new ArrayList();            //  Zera nova populacao
@@ -80,18 +87,15 @@ public class Instancia {
     }
     
     public void cruzar(Rota predominante, Rota rota) {
-        // Teste probabilistico do cruzamento
-        
         Rota filho = new Rota();
-        
         boolean igual;
-        int size = Math.round(predominante.getSequencia().size()/2);    //  talvez necessario size() ser transformado apra double
-        //System.out.println("Média de cidades:" + size);
-        
+
+        int size = Math.round(predominante.getSequencia().size()/2);    //  talvez necessario size() ser transformado para double
+
         for (int i=0; i < size; i++) {  //  Metade do predominante
             filho.getSequencia().add(predominante.getSequencia().get(i));
         }
-        
+
         for (Integer sRota : rota.getSequencia()) {
             igual = false;
             for (Integer sFilho1 : filho.getSequencia()) {
@@ -104,8 +108,21 @@ public class Instancia {
                 filho.getSequencia().add(sRota);
             }
         }
+        
+        if (roleta.chanceAleatoria(chanceMutacao)) {
+            int a = rand.nextInt(filho.getSequencia().size());
+            int b = rand.nextInt(filho.getSequencia().size());
+            
+            int aux = filho.getSequencia().get(a);
+            filho.getSequencia().set(a, filho.getSequencia().get(b));
+            filho.getSequencia().set(b, aux);
+            
+            System.out.println("Mutacao");
+        }
+        
+        
         filho.getSequencia().add(filho.getSequencia().get(0));
-       
+
         //  Insere na nova populacao
         filho.calculaDistancia(matrizDistancias);
         listNovaPopulacao.add(filho);
