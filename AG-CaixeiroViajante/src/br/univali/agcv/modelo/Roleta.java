@@ -7,14 +7,14 @@ import java.util.Random;
 public class Roleta {
     private List<Integer> roleta;
     private Random rand;
-    private double totalFitnes;
+    private double totalFitnes = 0.0;
 
     public Roleta(List<Rota> populacao) {
         roleta = new ArrayList();
         rand = new Random();
         
-        for (Rota individui : populacao) {
-            totalFitnes += individui.getFitness()*100;
+        for (Rota individuo : populacao) {
+            totalFitnes += individuo.getFitness()*100;
         }
         
         for (int i=0; i < populacao.size(); i++) {
@@ -22,9 +22,7 @@ public class Roleta {
             for (int j=0; j < percent; j++) {
                 roleta.add(i);
             }
-            System.out.println("");
         }
-        System.out.println("");
     }
     
     public int getSorteadoIndex() {

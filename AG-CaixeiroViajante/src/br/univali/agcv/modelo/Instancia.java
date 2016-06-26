@@ -43,14 +43,20 @@ public class Instancia {
         //  Selecao dos pais
         Rota pai1;
         Rota pai2;
-        roleta = new Roleta(listRotas);
-
+        int indexPai1;
+        int indexPai2;
+        
         for (int i=0; i < listRotas.size(); i++) {
-            pai1 = listRotas.get(roleta.getSorteadoIndex()); 
+            roleta = new Roleta(listRotas);
+            indexPai1 = roleta.getSorteadoIndex();
+            pai1 = listRotas.get(indexPai1);
+            System.out.println("PAI1");
+            pai1.exibeRota();
             do {
-                pai2 = listRotas.get(roleta.getSorteadoIndex());
-                System.out.println("ROLETA");
-            } while(pai1.getSequencia().equals(pai2.getSequencia()));
+                indexPai2 = roleta.getSorteadoIndex();
+                pai2 = listRotas.get(indexPai2);
+                pai2.exibeRota();
+            } while(indexPai1 == indexPai2);
         
             //  Cruzar
             if (pai1.getDistanciaPercorrida() < pai2.getDistanciaPercorrida()) {    //  Teste de individuo predominante
@@ -70,6 +76,7 @@ public class Instancia {
         }
         listRotas = new ArrayList(listNovaPopulacao);   //  Populacao atual passa a ser a nova populacao
         listNovaPopulacao = new ArrayList();            //  Zera nova populacao
+        exibeRotas();                                   //  Exibe população atual
     }
     
     public void cruzar(Rota predominante, Rota rota) {
