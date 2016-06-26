@@ -111,7 +111,10 @@ public class Instancia {
         
         if (roleta.chanceAleatoria(chanceMutacao)) {
             int a = rand.nextInt(filho.getSequencia().size());
-            int b = rand.nextInt(filho.getSequencia().size());
+            int b;
+            do{                                                                 // Evitar uma mutação que nao muda nada
+                b = rand.nextInt(filho.getSequencia().size());
+            }while (a == b);
             
             int aux = filho.getSequencia().get(a);
             filho.getSequencia().set(a, filho.getSequencia().get(b));

@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
 public class TelaMenu extends javax.swing.JFrame {
 
     public TelaMenu() {
@@ -184,48 +183,49 @@ public class TelaMenu extends javax.swing.JFrame {
         Instancia instancia;
         int qtdCidades = Integer.parseInt(textCidades.getText());
         int percentualCruzamento = Integer.parseInt(textCruzamento.getText());
-        int chanceMutacao = Integer.parseInt(textRotas.getText());
+        int chanceMutacao = Integer.parseInt(textMutacao.getText());
         int qtdIteracoes = Integer.parseInt(textIteracores.getText());
-        
+        int qtdRotas = Integer.parseInt(textRotas.getText());
+
         try {
             instancia = new Instancia(qtdCidades, percentualCruzamento, chanceMutacao);
             double[][] matrizAux = instancia.getMatrizDistancias(); //  Ponteiro
-            
+
             //  Entrada de dados
-            for (int i=0; i < instancia.getQtdCidades(); i++) {  // Cidade
+            for (int i = 0; i < instancia.getQtdCidades(); i++) {  // Cidade
                 int j = i;    //  Cascata
                 while (j < instancia.getQtdCidades()) {  // Distancia cidades
-                    matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
+                        matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
                     j++;
                 }
             }
-            
+
             //  Exibicao matriz
             System.out.println("------------------------------\nMatriz de adjacencia:");
             instancia.exibeMatriz();
-            
+
             //  Rotas aleatorias
             System.out.println("(\"------------------------------\nPopulação");
-            instancia.gerarRotas(Integer.parseInt(textRotas.getText()));
-            
+            instancia.gerarRotas(qtdRotas);
+
             //  Cruzamento e formacao da nova populacao
             System.out.println("------------------------------\nCRUZAMENTOS" + Integer.parseInt(textIteracores.getText()));
-            for (int geracao=0; geracao < qtdIteracoes; geracao++) {
+            for (int geracao = 0; geracao < qtdIteracoes; geracao++) {
                 System.out.println("++++++++++++++++++++++++++++++\nGeração " + geracao);
                 instancia.cruzaPopulacao();
                 instancia.exibeRotasNovaPopulacao();
             }
-            
+
             //  Solucao
             Rota solucao = instancia.menorRota();
             System.out.println("------------------------------\nSolução encontrada:");
             solucao.exibeRota();
-            
+
             String solucaoPane = "";
             for (Integer sequencia : solucao.getSequencia()) {
                 solucaoPane += sequencia + " - ";
             }
-            
+
             JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n" + solucaoPane);
         } catch (Exception e) {
             e.printStackTrace();
@@ -268,7 +268,7 @@ public class TelaMenu extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(TelaMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaMenu().setVisible(true);
