@@ -195,7 +195,11 @@ public class TelaMenu extends javax.swing.JFrame {
             for (int i = 0; i < instancia.getQtdCidades(); i++) {  // Cidade
                 int j = i;    //  Cascata
                 while (j < instancia.getQtdCidades()) {  // Distancia cidades
+                    if (i == j) {
+                        matrizAux[i][j] = 0;    // Distande de uma cidade pra ela mesmo.
+                    } else {
                         matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
+                    }
                     j++;
                 }
             }
