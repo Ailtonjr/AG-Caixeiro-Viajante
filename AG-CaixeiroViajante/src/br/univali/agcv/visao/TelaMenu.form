@@ -34,8 +34,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelPrincipal" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPrincipal" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,19 +61,31 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelRotas" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelCidades" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelMutacao" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelIteracoes" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelSobreviventes" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelPercentual" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace pref="61" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="textCidades" pref="54" max="32767" attributes="0"/>
+                                  <Component id="textRotas" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="textCruzamento" alignment="1" min="-2" pref="54" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="labelMutacao" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="textMutacao" min="-2" pref="54" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelSobreviventes" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelIteracoes" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="textCruzamento" max="32767" attributes="0"/>
-                              <Component id="textSobreviventes" max="32767" attributes="0"/>
                               <Component id="textIteracores" max="32767" attributes="0"/>
-                              <Component id="textMutacao" max="32767" attributes="0"/>
-                              <Component id="textCidades" pref="54" max="32767" attributes="0"/>
-                              <Component id="textRotas" max="32767" attributes="0"/>
+                              <Component id="textSobreviventes" pref="54" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -96,27 +108,27 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelMutacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textCruzamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelPercentual" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="textMutacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelMutacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelIteracoes" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textIteracores" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelSobreviventes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textSobreviventes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSobreviventes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelPercentual" min="-2" max="-2" attributes="0"/>
-                      <Component id="textCruzamento" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelIteracoes" min="-2" max="-2" attributes="0"/>
+                      <Component id="textIteracores" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="buttonNovaInstancia" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
