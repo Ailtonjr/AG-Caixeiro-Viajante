@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
 public class TelaMenu extends javax.swing.JFrame {
 
     public TelaMenu() {
@@ -109,25 +108,23 @@ public class TelaMenu extends javax.swing.JFrame {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonNovaInstancia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                    .addComponent(buttonNovaInstancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelRotas)
                             .addComponent(labelCidades)
                             .addComponent(labelMutacao)
                             .addComponent(labelIteracoes)
-                            .addComponent(labelSobreviventes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelSobreviventes)
+                            .addComponent(labelPercentual))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textCruzamento)
                             .addComponent(textSobreviventes)
                             .addComponent(textIteracores)
                             .addComponent(textMutacao)
                             .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(textRotas)))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(labelPercentual)
-                        .addGap(29, 29, 29)
-                        .addComponent(textCruzamento, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))
+                            .addComponent(textRotas))))
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -186,40 +183,55 @@ public class TelaMenu extends javax.swing.JFrame {
         Instancia instancia;
         int qtdCidades = Integer.parseInt(textCidades.getText());
         int percentualCruzamento = Integer.parseInt(textCruzamento.getText());
-        int chanceMutacao = Integer.parseInt(textRotas.getText());
-        
+        int chanceMutacao = Integer.parseInt(textMutacao.getText());
+        int qtdIteracoes = Integer.parseInt(textIteracores.getText());
+        int qtdRotas = Integer.parseInt(textRotas.getText());
+        int qtdSobreviventes = Integer.parseInt(textSobreviventes.getText());
+
         try {
             instancia = new Instancia(qtdCidades, percentualCruzamento, chanceMutacao);
             double[][] matrizAux = instancia.getMatrizDistancias(); //  Ponteiro
-            
+
             //  Entrada de dados
-            for (int i=0; i < instancia.getQtdCidades(); i++) {  // Cidade
+            for (int i = 0; i < instancia.getQtdCidades(); i++) {  // Cidade
                 int j = i;    //  Cascata
                 while (j < instancia.getQtdCidades()) {  // Distancia cidades
-                    matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
+                    if (i == j) {
+                        matrizAux[i][j] = 0;    // Distande de uma cidade pra ela mesmo.
+                    } else {
+                        matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
+                    }
                     j++;
                 }
             }
-            
+
             //  Exibicao matriz
             System.out.println("------------------------------\nMatriz de adjacencia:");
             instancia.exibeMatriz();
-            
+
             //  Rotas aleatorias
             System.out.println("(\"------------------------------\nPopulação");
-            instancia.gerarRotas(Integer.parseInt(textRotas.getText()));
-            
+            instancia.gerarRotas(qtdRotas);
+
             //  Cruzamento e formacao da nova populacao
-            for (int geracao=0; geracao < Integer.parseInt(textIteracores.getText()); geracao++) {
-                instancia.cruzaPopulacao();
+            System.out.println("------------------------------\nCRUZAMENTOS " + Integer.parseInt(textIteracores.getText()));
+            for (int geracao = 0; geracao < qtdIteracoes; geracao++) {
+                System.out.println("++++++++++++++++++++++++++++++\nGeração " + geracao);
+                instancia.cruzaPopulacao(qtdSobreviventes);
                 instancia.exibeRotasNovaPopulacao();
             }
-            
+
             //  Solucao
             Rota solucao = instancia.menorRota();
             System.out.println("------------------------------\nSolução encontrada:");
             solucao.exibeRota();
-            JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n");
+
+            String solucaoPane = "";
+            for (Integer sequencia : solucao.getSequencia()) {
+                solucaoPane += sequencia + " - ";
+            }
+
+            JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n" + solucaoPane);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -261,7 +273,7 @@ public class TelaMenu extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(TelaMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaMenu().setVisible(true);
