@@ -22,7 +22,7 @@ public class Instancia {
         listRotas = new ArrayList();
         listNovaPopulacao = new ArrayList();
         matrizDistancias = new double[qtdCidades][qtdCidades];
-        chanceCruzamento = percentualCruzamento;
+        this.chanceCruzamento = percentualCruzamento;
         this.chanceMutacao = percentualMutacao;
         rand = new Random();
         zeraMatriz();
@@ -44,23 +44,28 @@ public class Instancia {
         exibeRotas();
     }
     
-    public void cruzaPopulacao() {
+    public void cruzaPopulacao(int qtdSobrevivente) {
         //  Selecao dos pais
         Rota pai1;
         Rota pai2;
         int indexPai1;
         int indexPai2;
         
-        for (int i=0; i < listRotas.size(); i++) {
+        // Adicionando os melhores na proxima geração
+        for (int i = 0; i < qtdSobrevivente; i++) {
+            
+        }
+        
+        for (int i=0; i < (listRotas.size()- qtdSobrevivente); i++) {
             roleta = new Roleta(listRotas);
             indexPai1 = roleta.getSorteadoIndex();
             pai1 = listRotas.get(indexPai1);
-            System.out.println("PAI1");
-            pai1.exibeRota();
+//            System.out.println("PAI1");
+            //pai1.exibeRota();
             do {
                 indexPai2 = roleta.getSorteadoIndex();
                 pai2 = listRotas.get(indexPai2);
-                pai2.exibeRota();
+                //pai2.exibeRota();
             } while(indexPai1 == indexPai2);
                     
             if (roleta.chanceAleatoria(chanceCruzamento)) { // Chance de cruzar ou nao

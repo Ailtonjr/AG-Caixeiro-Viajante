@@ -186,6 +186,7 @@ public class TelaMenu extends javax.swing.JFrame {
         int chanceMutacao = Integer.parseInt(textMutacao.getText());
         int qtdIteracoes = Integer.parseInt(textIteracores.getText());
         int qtdRotas = Integer.parseInt(textRotas.getText());
+        int qtdSobreviventes = Integer.parseInt(textSobreviventes.getText());
 
         try {
             instancia = new Instancia(qtdCidades, percentualCruzamento, chanceMutacao);
@@ -213,10 +214,10 @@ public class TelaMenu extends javax.swing.JFrame {
             instancia.gerarRotas(qtdRotas);
 
             //  Cruzamento e formacao da nova populacao
-            System.out.println("------------------------------\nCRUZAMENTOS" + Integer.parseInt(textIteracores.getText()));
+            System.out.println("------------------------------\nCRUZAMENTOS " + Integer.parseInt(textIteracores.getText()));
             for (int geracao = 0; geracao < qtdIteracoes; geracao++) {
                 System.out.println("++++++++++++++++++++++++++++++\nGeração " + geracao);
-                instancia.cruzaPopulacao();
+                instancia.cruzaPopulacao(qtdSobreviventes);
                 instancia.exibeRotasNovaPopulacao();
             }
 
