@@ -210,7 +210,7 @@ public class TelaMenu extends javax.swing.JFrame {
             instancia.exibeMatriz();
 
             //  Rotas aleatorias
-            System.out.println("(\"------------------------------\nPopulação");
+            System.out.println("------------------------------\nPopulação");
             instancia.gerarRotas(qtdRotas);
 
             //  Cruzamento e formacao da nova populacao
