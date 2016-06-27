@@ -53,7 +53,12 @@ public class Instancia {
         
         // Adicionando os melhores na proxima geração
         for (int i = 0; i < qtdSobrevivente; i++) {
-            
+            Rota rotaAux = menorRota();
+            listNovaPopulacao.add(rotaAux);
+            listRotas.remove(rotaAux);
+        }
+        for (Rota r : listNovaPopulacao) {
+            listRotas.add(r);
         }
         
         for (int i=0; i < (listRotas.size()- qtdSobrevivente); i++) {
