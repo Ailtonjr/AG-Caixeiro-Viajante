@@ -11,7 +11,7 @@ public class Instancia {
     private List<Rota> listRotas;
     private List<Rota> listNovaPopulacao;
     private double[][] matrizDistancias;
-    private Rota fitness;
+    private Rota melhorRotaInstancia;
     private Roleta roleta;
     private int chanceCruzamento;
     private int chanceMutacao;
@@ -44,7 +44,7 @@ public class Instancia {
         exibeRotas();
     }
     
-    public void cruzaPopulacao(int qtdSobrevivente) {
+    public void cruzaPopulacao(int qtdSobreviventes) {
         //  Selecao dos pais
         Rota pai1;
         Rota pai2;
@@ -52,11 +52,16 @@ public class Instancia {
         int indexPai2;
         
         // Adicionando os melhores na proxima geração
-        for (int i = 0; i < qtdSobrevivente; i++) {
-            
+        for (int i = 0; i < qtdSobreviventes; i++) {
+            Rota rotaAux = menorRota();
+            listNovaPopulacao.add(rotaAux);
+            listRotas.remove(rotaAux);
+        }
+        for (Rota r : listNovaPopulacao) {
+            listRotas.add(r);
         }
         
-        for (int i=0; i < (listRotas.size()- qtdSobrevivente); i++) {
+        for (int i=0; i < (listRotas.size() - qtdSobreviventes); i++) {
             roleta = new Roleta(listRotas);
             indexPai1 = roleta.getSorteadoIndex();
             pai1 = listRotas.get(indexPai1);
@@ -86,6 +91,17 @@ public class Instancia {
                 listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
             } else i--;
         }
+        
+        //  Melhor da instancia
+        if (melhorRotaInstancia != null) {
+            if (menorRota().getDistanciaPercorrida() < melhorRotaInstancia.getDistanciaPercorrida()) {
+                melhorRotaInstancia = menorRota();
+            }
+        } else {
+            melhorRotaInstancia = menorRota();
+        }
+        
+        
         listRotas = new ArrayList(listNovaPopulacao);   //  Populacao atual passa a ser a nova populacao
         listNovaPopulacao = new ArrayList();            //  Zera nova populacao
         exibeRotas();                                   //  Exibe população atual
@@ -199,4 +215,12 @@ public class Instancia {
     public void setMatrizDistancias(double[][] matrizDistancias) {
         this.matrizDistancias = matrizDistancias;
     } 
+
+    public Rota getMelhorRotaInstancia() {
+        return melhorRotaInstancia;
+    }
+
+    public void setMelhorRotaInstancia(Rota melhorRotaInstancia) {
+        this.melhorRotaInstancia = melhorRotaInstancia;
+    }
 }
