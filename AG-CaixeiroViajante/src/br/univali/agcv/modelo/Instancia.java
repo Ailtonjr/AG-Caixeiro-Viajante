@@ -11,7 +11,7 @@ public class Instancia {
     private List<Rota> listRotas;
     private List<Rota> listNovaPopulacao;
     private double[][] matrizDistancias;
-    private Rota fitness;
+    private Rota melhorRotaInstancia;
     private Roleta roleta;
     private int chanceCruzamento;
     private int chanceMutacao;
@@ -91,6 +91,17 @@ public class Instancia {
                 listNovaPopulacao.get(listNovaPopulacao.size()-1).exibeRota();
             } else i--;
         }
+        
+        //  Melhor da instancia
+        if (melhorRotaInstancia != null) {
+            if (menorRota().getDistanciaPercorrida() < melhorRotaInstancia.getDistanciaPercorrida()) {
+                melhorRotaInstancia = menorRota();
+            }
+        } else {
+            melhorRotaInstancia = menorRota();
+        }
+        
+        
         listRotas = new ArrayList(listNovaPopulacao);   //  Populacao atual passa a ser a nova populacao
         listNovaPopulacao = new ArrayList();            //  Zera nova populacao
         exibeRotas();                                   //  Exibe população atual
@@ -204,4 +215,12 @@ public class Instancia {
     public void setMatrizDistancias(double[][] matrizDistancias) {
         this.matrizDistancias = matrizDistancias;
     } 
+
+    public Rota getMelhorRotaInstancia() {
+        return melhorRotaInstancia;
+    }
+
+    public void setMelhorRotaInstancia(Rota melhorRotaInstancia) {
+        this.melhorRotaInstancia = melhorRotaInstancia;
+    }
 }

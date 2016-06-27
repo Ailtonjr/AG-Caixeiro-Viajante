@@ -222,14 +222,15 @@ public class TelaMenu extends javax.swing.JFrame {
             }
 
             //  Solucao
-            Rota solucao = instancia.menorRota();
+            Rota solucao = instancia.getMelhorRotaInstancia();
             System.out.println("------------------------------\nSolução encontrada:");
             solucao.exibeRota();
 
             String solucaoPane = "";
             for (Integer sequencia : solucao.getSequencia()) {
-                solucaoPane += sequencia + " - ";
+                solucaoPane += sequencia + " ";
             }
+            solucaoPane += " | Distancia: " + solucao.getDistanciaPercorrida();
 
             JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n" + solucaoPane);
         } catch (Exception e) {
