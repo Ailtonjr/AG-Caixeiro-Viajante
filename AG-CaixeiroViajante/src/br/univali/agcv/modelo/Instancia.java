@@ -44,7 +44,7 @@ public class Instancia {
         exibeRotas();
     }
     
-    public void cruzaPopulacao(int qtdSobrevivente) {
+    public void cruzaPopulacao(int qtdSobreviventes) {
         //  Selecao dos pais
         Rota pai1;
         Rota pai2;
@@ -52,7 +52,7 @@ public class Instancia {
         int indexPai2;
         
         // Adicionando os melhores na proxima geração
-        for (int i = 0; i < qtdSobrevivente; i++) {
+        for (int i = 0; i < qtdSobreviventes; i++) {
             Rota rotaAux = menorRota();
             listNovaPopulacao.add(rotaAux);
             listRotas.remove(rotaAux);
@@ -61,7 +61,7 @@ public class Instancia {
             listRotas.add(r);
         }
         
-        for (int i=0; i < (listRotas.size()- qtdSobrevivente); i++) {
+        for (int i=0; i < (listRotas.size() - qtdSobreviventes); i++) {
             roleta = new Roleta(listRotas);
             indexPai1 = roleta.getSorteadoIndex();
             pai1 = listRotas.get(indexPai1);
