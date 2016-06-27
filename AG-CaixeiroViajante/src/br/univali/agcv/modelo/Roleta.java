@@ -30,7 +30,8 @@ public class Roleta {
     }
     
     public boolean chanceAleatoria(int seed) {
-        if (rand.nextInt(100)+1 <= seed) {
+        int random = rand.nextInt(100)+1;
+        if (random <= seed) {
             return true;
         } else {
             return false;
