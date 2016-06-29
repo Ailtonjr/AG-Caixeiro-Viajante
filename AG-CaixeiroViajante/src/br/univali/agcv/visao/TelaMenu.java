@@ -10,12 +10,57 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class TelaMenu extends javax.swing.JFrame {
 
+    private int qtdCidades;
+    private int percentualCruzamento;
+    private int chanceMutacao;
+    private int qtdIteracoes;
+    private int qtdRotas;
+    private int qtdSobreviventes;
+    private String msgErro;
+    
     public TelaMenu() {
         initComponents();
         this.setTitle("AG-Caixeiro");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+    
+    public boolean checaCampos() {
+        try {
+            qtdCidades = Integer.parseInt(textCidades.getText());
+            percentualCruzamento = Integer.parseInt(textCruzamento.getText());
+            chanceMutacao = Integer.parseInt(textMutacao.getText());
+            qtdIteracoes = Integer.parseInt(textIteracores.getText());
+            qtdRotas = Integer.parseInt(textRotas.getText());
+            qtdSobreviventes = Integer.parseInt(textSobreviventes.getText());
+        } catch (Exception e) {
+            msgErro = "Preencha os campos apenas com valores numéricos.";
+            return false;
+        }
+        
+        if (qtdCidades < 2) {   //  Cidades
+            msgErro = "Quantidade de cidades deve ser maior que 1!";
+            return false;
+        }
+        if (qtdRotas < 2) {     //  Rotas
+            msgErro = "Quantidade de rotas deve ser maior que 1!";
+            return false;
+        }
+        if (percentualCruzamento < 0 || percentualCruzamento > 100) {  //  Cruzamento
+            msgErro = "Percentual de cruzamento deve estar entre 0 e 100.";
+            return false;
+        }
+        if (chanceMutacao < 0 || chanceMutacao > 100) { //  Mutacao
+            msgErro = "Percentual de mutacao deve estar entre 0 e 100.";
+            return false;
+        }
+        if (qtdSobreviventes < 0 || qtdSobreviventes > qtdRotas) {
+            msgErro = "A quantidade de sobreviventes deve ser maior que 0 e menor que o total de cidades.";
+            return false;
+        }
+        
+        return true;
     }
 
     /**
@@ -113,18 +158,25 @@ public class TelaMenu extends javax.swing.JFrame {
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelRotas)
                             .addComponent(labelCidades)
-                            .addComponent(labelMutacao)
-                            .addComponent(labelIteracoes)
-                            .addComponent(labelSobreviventes)
                             .addComponent(labelPercentual))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                .addComponent(textRotas))
+                            .addComponent(textCruzamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(labelMutacao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelSobreviventes)
+                            .addComponent(labelIteracoes))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textCruzamento)
-                            .addComponent(textSobreviventes)
                             .addComponent(textIteracores)
-                            .addComponent(textMutacao)
-                            .addComponent(textCidades, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(textRotas))))
+                            .addComponent(textSobreviventes, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -140,23 +192,23 @@ public class TelaMenu extends javax.swing.JFrame {
                     .addComponent(labelRotas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMutacao)
-                    .addComponent(textMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textCruzamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPercentual))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelIteracoes)
-                    .addComponent(textIteracores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMutacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelSobreviventes)
-                    .addComponent(textSobreviventes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textSobreviventes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSobreviventes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelPercentual)
-                    .addComponent(textCruzamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelIteracoes)
+                    .addComponent(textIteracores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(buttonNovaInstancia)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,69 +224,67 @@ public class TelaMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonNovaInstanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovaInstanciaActionPerformed
-        Instancia instancia;
-        int qtdCidades = Integer.parseInt(textCidades.getText());
-        int percentualCruzamento = Integer.parseInt(textCruzamento.getText());
-        int chanceMutacao = Integer.parseInt(textMutacao.getText());
-        int qtdIteracoes = Integer.parseInt(textIteracores.getText());
-        int qtdRotas = Integer.parseInt(textRotas.getText());
-        int qtdSobreviventes = Integer.parseInt(textSobreviventes.getText());
+        if (checaCampos()) {
+            Instancia instancia;
 
-        try {
-            instancia = new Instancia(qtdCidades, percentualCruzamento, chanceMutacao);
-            double[][] matrizAux = instancia.getMatrizDistancias(); //  Ponteiro
+            try {
+                instancia = new Instancia(qtdCidades, percentualCruzamento, chanceMutacao);
+                double[][] matrizAux = instancia.getMatrizDistancias(); //  Ponteiro
 
-            //  Entrada de dados
-            for (int i = 0; i < instancia.getQtdCidades(); i++) {  // Cidade
-                int j = i;    //  Cascata
-                while (j < instancia.getQtdCidades()) {  // Distancia cidades
-                    if (i == j) {
-                        matrizAux[i][j] = 0;    // Distande de uma cidade pra ela mesmo.
-                    } else {
-                        matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
+                //  Entrada de dados
+                for (int i = 0; i < instancia.getQtdCidades(); i++) {  // Cidade
+                    int j = i;    //  Cascata
+                    while (j < instancia.getQtdCidades()) {  // Distancia cidades
+                        if (i == j) {
+                            matrizAux[i][j] = 0;    // Distande de uma cidade pra ela mesmo.
+                        } else {
+                            matrizAux[i][j] = Integer.parseInt(JOptionPane.showInputDialog("Distancia entre cidade" + i + " e cidade" + j));
+                        }
+                        j++;
                     }
-                    j++;
                 }
+
+                //  Exibicao matriz
+                System.out.println("------------------------------\nMatriz de adjacencia:");
+                instancia.exibeMatriz();
+
+                //  Rotas aleatorias
+                System.out.println("------------------------------\nPopulação");
+                instancia.gerarRotas(qtdRotas);
+
+                //  Cruzamento e formacao da nova populacao
+                System.out.println("------------------------------\nCRUZAMENTOS " + Integer.parseInt(textIteracores.getText()));
+                for (int geracao = 0; geracao < qtdIteracoes; geracao++) {
+                    System.out.println("++++++++++++++++++++++++++++++\nGeração " + geracao);
+                    instancia.cruzaPopulacao(qtdSobreviventes);
+                    instancia.exibeRotasNovaPopulacao();
+                }
+
+                //  Solucao
+                Rota solucao = instancia.getMelhorRotaInstancia();
+                System.out.println("------------------------------\nSolução encontrada:");
+                solucao.exibeRota();
+
+                String solucaoPane = "";
+                for (Integer sequencia : solucao.getSequencia()) {
+                    solucaoPane += sequencia + " ";
+                }
+                solucaoPane += " | Distancia: " + solucao.getDistanciaPercorrida();
+
+                JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n" + solucaoPane);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            //  Exibicao matriz
-            System.out.println("------------------------------\nMatriz de adjacencia:");
-            instancia.exibeMatriz();
-
-            //  Rotas aleatorias
-            System.out.println("------------------------------\nPopulação");
-            instancia.gerarRotas(qtdRotas);
-
-            //  Cruzamento e formacao da nova populacao
-            System.out.println("------------------------------\nCRUZAMENTOS " + Integer.parseInt(textIteracores.getText()));
-            for (int geracao = 0; geracao < qtdIteracoes; geracao++) {
-                System.out.println("++++++++++++++++++++++++++++++\nGeração " + geracao);
-                instancia.cruzaPopulacao(qtdSobreviventes);
-                instancia.exibeRotasNovaPopulacao();
-            }
-
-            //  Solucao
-            Rota solucao = instancia.getMelhorRotaInstancia();
-            System.out.println("------------------------------\nSolução encontrada:");
-            solucao.exibeRota();
-
-            String solucaoPane = "";
-            for (Integer sequencia : solucao.getSequencia()) {
-                solucaoPane += sequencia + " ";
-            }
-            solucaoPane += " | Distancia: " + solucao.getDistanciaPercorrida();
-
-            JOptionPane.showMessageDialog(null, "Melhor rota encontrada em " + textIteracores.getText() + " iteracoes:\n" + solucaoPane);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            JOptionPane.showMessageDialog(this, msgErro);
         }
     }//GEN-LAST:event_buttonNovaInstanciaActionPerformed
 
